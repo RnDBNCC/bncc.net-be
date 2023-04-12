@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StructureController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -26,6 +27,17 @@ Route::get('/', function () {
 });
 
 Route::middleware('isAdmin')->group(function(){
+
+    Route::prefix('/structure')->group(function(){
+        Route::get('/', [StructureController::class, 'index'])->name('index');
+        Route::get('/create', [StructureController::class, 'create'])->name('create');
+        Route::post('/store', [StructureController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [StructureController::class, 'edit'])->name('edit');
+        Route::patch('/update/{id}', [StructureController::class, 'update'])->name('update');
+        Route::delete('/delete/{id}', [StructureController::class, 'delete'])->name('delete');
+    });
+
+
 
 });
 
