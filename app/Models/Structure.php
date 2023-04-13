@@ -14,6 +14,7 @@ class Structure extends Model
         'profile_name',
         'profile_division',
         'profile_sub_division',
-        'profile_position'
+        'profile_position',
+        'profile_region'
     ];
 }

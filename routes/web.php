@@ -28,16 +28,20 @@ Route::get('/', function () {
 
 Route::middleware('isAdmin')->group(function(){
 
-    Route::prefix('/structure')->group(function(){
-        Route::get('/', [StructureController::class, 'index'])->name('index');
-        Route::get('/create', [StructureController::class, 'create'])->name('create');
-        Route::post('/store', [StructureController::class, 'store'])->name('store');
-        Route::get('/edit/{id}', [StructureController::class, 'edit'])->name('edit');
-        Route::patch('/update/{id}', [StructureController::class, 'update'])->name('update');
-        Route::delete('/delete/{id}', [StructureController::class, 'delete'])->name('delete');
+    Route::prefix('/admin')->group(function(){
+        Route::prefix('/structure')->group(function(){
+            Route::get('/', [StructureController::class, 'kmg'])->name('kmg');
+            Route::get('/as', [StructureController::class, 'as'])->name('as');
+            Route::get('/bdg', [StructureController::class, 'bdg'])->name('bdg');
+            Route::get('/mlg', [StructureController::class, 'mlg'])->name('mlg');
+
+            Route::get('/create', [StructureController::class, 'create'])->name('create');
+            Route::post('/store', [StructureController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [StructureController::class, 'edit'])->name('edit');
+            Route::patch('/update/{id}', [StructureController::class, 'update'])->name('update');
+            Route::delete('/delete/{id}', [StructureController::class, 'delete'])->name('delete');
+        });
     });
-
-
 
 });
 

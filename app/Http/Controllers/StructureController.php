@@ -8,9 +8,24 @@ use Illuminate\Support\Facades\Storage;
 
 class StructureController extends Controller
 {
-    public function index(){
+    public function kmg(){
         $structures = Structure::all();
-        return view('Structure.ViewStructure', compact('structures'));
+        return view('Structure.ViewKMGStructure', compact('structures'));
+    }
+
+    public function as(){
+        $structures = Structure::all();
+        return view('Structure.ViewASStructure', compact('structures'));
+    }
+
+    public function bdg(){
+        $structures = Structure::all();
+        return view('Structure.ViewBDGStructure', compact('structures'));
+    }
+
+    public function mlg(){
+        $structures = Structure::all();
+        return view('Structure.ViewMLGStructure', compact('structures'));
     }
 
     public function create(){
@@ -36,10 +51,11 @@ class StructureController extends Controller
             'profile_name' => $request->profile_name,
             'profile_division' => $request->profile_division,
             'profile_sub_division' => $request->profile_sub_division,
-            'profile_position' => $request->profile_position
+            'profile_position' => $request->profile_position,
+            'profile_region' => $request->profile_region
             ]);
 
-        return redirect('/structure');
+        return redirect(route('kmg'));
     }
 
     public function edit($id){
@@ -48,13 +64,13 @@ class StructureController extends Controller
     }
 
     public function update(Request $request, $id){
-        $extension = $request->file('profile_photo')->getClientOriginalExtension();
+        $image = $request->file('profile_photo');
         $structure = Structure::findOrFail($id);
 
-        if($extension){
+        if($image){
             Storage::delete('public/image/structure'.$structure->profile_photo);
-            $file_name = $request->profile_name.'.'.$extension;
-            $request->file('profile_photo')->storeAs('/public/image/structure', $file_name);
+            $file_name = $request->profile_name.'.'.$image->getClientOriginalName();
+            $image->storeAs('/public/image/structure', $file_name);
             $structure->update([
                 'profile_photo' => $file_name
             ]);
@@ -64,10 +80,12 @@ class StructureController extends Controller
             'profile_name' => $request->profile_name,
             'profile_division' => $request->profile_division,
             'profile_sub_division' => $request->profile_sub_division,
-            'profile_position' => $request->profile_position
+            'profile_position' => $request->profile_position,
+            'profile_region' => $request->profile_region
         ]);
 
-        return redirect(route('index'));
+        return redirect(route('kmg'));
+
     }
 
     public function delete($id){
@@ -75,6 +93,6 @@ class StructureController extends Controller
         $structure->delete();
         Storage::delete('public/image/structure'.$structure->profile_photo);
 
-        return redirect(route('index'));
+        return redirect()->back();
     }
 }
