@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('profile_division');
             $table->string('profile_sub_division');
             $table->string('profile_position');
+            $table->string('profile_region');
             $table->timestamps();
         });
     }
