@@ -39,7 +39,6 @@ class StructureController extends Controller
             'profile_position' => $request->profile_position,
             'profile_region' => $request->profile_region
             ]);
-
         return redirect(route('view'));
     }
 
@@ -68,16 +67,13 @@ class StructureController extends Controller
             'profile_position' => $request->profile_position,
             'profile_region' => $request->profile_region
         ]);
-
         return redirect(route('view'));
-
     }
 
     public function delete($id){
         $structure = Structure::findOrFail($id);
         $structure->delete();
         Storage::delete('public/image/structure'.$structure->profile_photo);
-
         return redirect()->back();
     }
 
