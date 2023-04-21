@@ -30,11 +30,8 @@ Route::middleware('isAdmin')->group(function(){
 
     Route::prefix('/admin')->group(function(){
         Route::prefix('/structure')->group(function(){
-            Route::get('/', [StructureController::class, 'kmg'])->name('kmg');
-            Route::get('/as', [StructureController::class, 'as'])->name('as');
-            Route::get('/bdg', [StructureController::class, 'bdg'])->name('bdg');
-            Route::get('/mlg', [StructureController::class, 'mlg'])->name('mlg');
-
+            Route::get('/', [StructureController::class, 'view'])->name('view');
+            Route::get('/view/{region}', [StructureController::class, 'filterRegion']);
             Route::get('/create', [StructureController::class, 'create'])->name('create');
             Route::post('/store', [StructureController::class, 'store'])->name('store');
             Route::get('/edit/{id}', [StructureController::class, 'edit'])->name('edit');

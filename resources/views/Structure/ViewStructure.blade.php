@@ -7,16 +7,24 @@
     <title>Document</title>
 </head>
 <body>
-
-    <nav>
-        <a href="/admin/structure/create">ADD</a>
-        <a href="/admin/structure">KMG</a>
-        <a href="/admin/structure/as">AS</a>
-        <a href="/admin/structure/bdg">BDG</a>
-        <a href="/admin/structure/mlg">MLG</a>
-    </nav>
-
-
+    <a href="/admin/structure/create">ADD</a>
+    <div>
+        <a href="{{url('admin/structure/')}}">
+            <button>ALL</button>
+        </a>
+        <a href="{{url('admin/structure/view/kmg')}}">
+            <button>KMG</button>
+        </a>
+        <a href="{{url('admin/structure/view/as')}}">
+            <button>AS</button>
+        </a>
+        <a href="{{url('admin/structure/view/bdg')}}">
+            <button>BDG</button>
+        </a>
+        <a href="{{url('admin/structure/view/mlg')}}">
+            <button>MLG</button>
+        </a>
+    </div>
 
     <table style="border:1px solid black">
         <th>
@@ -25,10 +33,10 @@
             <td>profile_division</td>
             <td>profile_sub_division</td>
             <td>profile_position</td>
+            <td>profile_region</td>
             <td>action</td>
         </th>
         @foreach ($structures as $structure)
-            @if ($structure->profile_region === 'AS')
             <tr>
                 <td>
                     <img style="width:100px" src="{{ asset('storage/image/structure/'.$structure->profile_photo) }}"/>
@@ -47,9 +55,7 @@
                     </form>
                 </td>
             </tr>
-            @endif
         @endforeach
     </table>
-
 </body>
 </html>

@@ -8,28 +8,13 @@ use Illuminate\Support\Facades\Storage;
 
 class StructureController extends Controller
 {
-    public function kmg(){
-        $structures = Structure::all();
-        return view('Structure.ViewKMGStructure', compact('structures'));
-    }
-
-    public function as(){
-        $structures = Structure::all();
-        return view('Structure.ViewASStructure', compact('structures'));
-    }
-
-    public function bdg(){
-        $structures = Structure::all();
-        return view('Structure.ViewBDGStructure', compact('structures'));
-    }
-
-    public function mlg(){
-        $structures = Structure::all();
-        return view('Structure.ViewMLGStructure', compact('structures'));
-    }
-
     public function create(){
         return view('Structure.CreateStructure');
+    }
+
+    public function view(){
+        $structures = Structure::all();
+        return view('Structure.ViewStructure', compact('structures'));
     }
 
     public function store(Request $request){
@@ -43,7 +28,7 @@ class StructureController extends Controller
         // ]);
 
         $extension = $request->file('profile_photo')->getClientOriginalExtension();
-        $file_name = $request->profile_name.'.'.$extension;
+        $file_name = $request->profile_region.'-'.$request->profile_name.'.'.$extension;
         $request->file('profile_photo')->storeAs('/public/image/structure', $file_name);
 
         Structure::create([
@@ -55,7 +40,7 @@ class StructureController extends Controller
             'profile_region' => $request->profile_region
             ]);
 
-        return redirect(route('kmg'));
+        return redirect(route('view'));
     }
 
     public function edit($id){
@@ -69,7 +54,7 @@ class StructureController extends Controller
 
         if($image){
             Storage::delete('public/image/structure'.$structure->profile_photo);
-            $file_name = $request->profile_name.'.'.$image->getClientOriginalName();
+            $file_name = $request->profile_region.'-'.$request->profile_name.'.'.$image->getClientOriginalName();
             $image->storeAs('/public/image/structure', $file_name);
             $structure->update([
                 'profile_photo' => $file_name
@@ -84,7 +69,7 @@ class StructureController extends Controller
             'profile_region' => $request->profile_region
         ]);
 
-        return redirect(route('kmg'));
+        return redirect(route('view'));
 
     }
 
@@ -94,5 +79,10 @@ class StructureController extends Controller
         Storage::delete('public/image/structure'.$structure->profile_photo);
 
         return redirect()->back();
+    }
+
+    public function filterRegion($region) {
+        $structures = Structure::where('profile_region', $region)->paginate(10);
+        return view('Structure.ViewStructure', compact('structures'));
     }
 }
