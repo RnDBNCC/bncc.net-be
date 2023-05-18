@@ -7,21 +7,23 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="{{route('StoreMission')}}" method="POST" enctype="multipart/form-data">
+    <form action="{{route('update_mission', $missions->id)}}" method="POST" enctype="multipart/form-data">
         @csrf
+        @method('patch')
+        <img src="{{ asset('storage/image/mission/'.$missions->image) }}" style='width:300px' alt="">
         <div>
             <label for="">Image</label>
-            <input name="Image" type="file">
+            <input name="image" type="file">
         </div>
 
         <div>
             <label for="">Name</label>
-            <input name="Name" type="text">
+            <input name="name" type="text" value="{{ $missions->name }}">
         </div>
 
         <div>
             <label for="">Description</label>
-            <textarea name="Description" id="" cols="30" rows="10"></textarea>
+            <textarea name="description" id="" cols="30" rows="10" value="{{ $missions->description }}"></textarea>
         </div>
 
         <button type="submit">Submit</button>

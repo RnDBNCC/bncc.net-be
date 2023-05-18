@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Mission extends Model
+class Vision extends Model
 {
     use HasFactory;
     protected $fillable=[
-        'image', 'name', 'description'
+        'name', 'description'
     ];
 }

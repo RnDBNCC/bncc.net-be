@@ -4,59 +4,82 @@ namespace App\Http\Controllers;
 
 use App\Models\Mission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 
 class MissionController extends Controller
 {
     //
-    public function StoreMission(Request $request){
-        $extension = $request->file('Image')->getClientOriginalExtension();
-        $fileName = $request->Name.'_'.$request->Author.'.'.$extension;
-        $request->file('Image')->storeAs('/public/image', $fileName);
+    public function store_mission(Request $request){
+        $extension = $request->file('image')->getClientOriginalExtension();
+        $file_name = $request->name.'.'.$extension;
+        $request->file('image')->storeAs('/public/image/mission', $file_name);
 
         Mission::create([
-            'Image' => $fileName,
-            'Name' => $request->Name,
-            'Description' => $request->Description
+            'image' => $file_name,
+            'name' => $request->name,
+            'description' => $request->description
         ]);
 
-        // return redirect('/view-mission');
-        return response()->json(["success"=>200]);
+        return redirect('/admin/mission/view');
+        // return redirect()->route('admin.view_mission');
+        // return view('mission.view_mission');
+        // return response()->json(["success"=>200]);
     }
 
-    public function ViewMission(){
+    public function view_mission(){
         $missions=Mission::all();
-        return view('Mission.ViewMission', compact('missions'));
+        return view('mission.view_mission', compact('missions'));
     }
 
-    public function CreateMission(){
-        return view('Mission.CreateMission');
+    public function create_mission(){
+        return view('mission.create_mission');
     }
 
-    public function UpdateMission(Request $request, $id){
-        $extension = $request->file('Image')->getClientOriginalExtension();
-        $fileName = $request->Name.'_'.$request->Author.'.'.$extension;
-        $request->file('Image')->storeAs('/public/image', $fileName);
+    public function update_mission(Request $request, $id){
+        // $extension = $request->file('image')->getClientOriginalName();
+        // $image->storeAs('/public/image/structure', $file_name);
+        // $request->file('image')->storeAs('/public/image', $file_name);
+
+        // Mission::findOrFail($id)->update([
+        //     'image' => $file_name,
+        //     'name' => $request->name,
+        //     'Description' => $request->description
+        // ]);
+
+        // return redirect('mission/view');
+        // return response()->json(["success"=>200]);
+
+        $image = $request->file('image');
+        $mission = Mission::findOrFail($id);
+
+        if($image){
+            Storage::delete('public/image/mission'.$mission->image);
+            $file_name = $request->name.'.'.$image->getClientOriginalName();
+            $image->storeAs('/public/image/mission', $file_name);
+            $mission->update([
+                'image' => $file_name
+            ]);
+        }
 
         Mission::findOrFail($id)->update([
-            'Image' => $fileName,
-            'Name' => $request->Name,
-            'Description' => $request->Description
+            'name' => $request->name,
+            'description' => $request->description
         ]);
 
-        return redirect('/view-mission');
+        return redirect('/admin/mission/view');
     }
 
-    public function EditMission($id){
+    public function edit_mission($id){
         $missions=Mission::findOrFail($id);
-        return view('Mission.UpdateMission', compact('missions'));
+        return view('mission.update_mission', compact('missions'));
     }
 
-    public function DeleteMission($id){
+    public function delete_mission($id){
         $missions=Mission::findOrFail($id);
         $missions->delete();
-        Storage::delete('/public/image'.$missions->Image);
-        #return redirect('/view-mission');
-        return response()->json(["success"=>200]);
+        Storage::delete('/public/image'.$missions->image);
+        return redirect('/mission/view');
+        // return response()->json(["success"=>200]);
     }
 }
