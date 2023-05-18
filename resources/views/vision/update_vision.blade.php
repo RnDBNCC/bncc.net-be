@@ -7,22 +7,17 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="{{route('UpdateMission', $missions->id)}}" method="POST" enctype="multipart/form-data">
+    <form action="{{route('update_vision', $visions->id)}}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('patch')
         <div>
-            <label for="">Image</label>
-            <input name="Image" type="file">
-        </div>
-
-        <div>
             <label for="">Name</label>
-            <input name="Name" type="text" value="{{ $missions->Name }}">
+            <input name="name" type="text" value="{{ $visions->name }}">
         </div>
 
         <div>
             <label for="">Description</label>
-            <textarea name="Description" id="" cols="30" rows="10" value="{{ $missions->Description }}"></textarea>
+            <textarea name="description" id="" cols="30" rows="10" value="{{ $visions->description }}"></textarea>
         </div>
 
         <button type="submit">Submit</button>

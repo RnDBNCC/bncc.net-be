@@ -17,13 +17,13 @@
         @foreach ($missions as $mission)
             <tr>
                 <td>
-                    <img style="width:100px" src="{{ asset('/storage/image/'.$mission->Image) }}" alt="No data yet" />
+                    <img style="width:100px" src="{{ asset('/storage/image/mission/'.$mission->image) }}" alt="No data yet" />
                 </td>
-                <td>{{ $mission->Name }}</td>
-                <td>{{ $mission->Description }}</td>
+                <td>{{ $mission->name }}</td>
+                <td>{{ $mission->description }}</td>
                 <td>
-                    <a href="{{route('EditMission', ['id'=>$mission->id])}}"><button type="submit" class="btn btn-success">Edit</button></a>
-                    <form action="{{route('DeleteMission', ['id'=>$mission->id])}}" method="post">
+                    <a href="{{route('edit_mission', ['id'=>$mission->id])}}"><button type="submit" class="btn btn-success">Edit</button></a>
+                    <form action="{{route('delete_mission', ['id'=>$mission->id])}}" method="post">
                         @csrf
                         @method('delete')
                         <button type="submit" class="btn btn-danger">Delete</button>
