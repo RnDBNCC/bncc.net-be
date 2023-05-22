@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -26,7 +27,17 @@ Route::get('/', function () {
 });
 
 Route::middleware('isAdmin')->group(function(){
-
+    Route::prefix('/admin')->group(function(){
+        Route::prefix('/history')->group(function(){
+            Route::get('/create', [HistoryController::class, 'create_history'])->name('create_history');
+            Route::patch('/update/{id}', [HistoryController::class, 'update_history'])->name('update_history');
+            Route::get('/edit/{id}', [HistoryController::class, 'edit_history'])->name('edit_history');
+            Route::get('/view', [HistoryController::class, 'view_history'])->name('view_history');
+            Route::post('/store', [HistoryController::class, 'store_history'])->name('store_history');
+            Route::delete('/delete/{id}', [HistoryController::class, 'delete_history'])->name('delete_history');
+            Route::post('/update/{id}', [HistoryController::class, 'update_history'])->name('update_history');
+        });
+    });
 });
 
 Route::get('/dashboard', function () {
