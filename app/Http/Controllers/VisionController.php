@@ -29,7 +29,7 @@ class VisionController extends Controller
     public function update_vision(Request $request, $id){
         Vision::findOrFail($id)->update([
             'name' => $request->name,
-            'Description' => $request->description
+            'description' => $request->description
         ]);
 
         return redirect('/admin/vision/view');

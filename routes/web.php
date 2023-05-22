@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CultureController;
 use App\Http\Controllers\MissionController;
 use App\Http\Controllers\VisionController;
 use App\Http\Controllers\ProfileController;
@@ -62,6 +63,16 @@ Route::middleware('isAdmin')->group(function(){
             Route::post('/store', [VisionController::class, 'store_vision'])->name('store_vision');
             Route::delete('/delete/{id}', [VisionController::class, 'delete_vision'])->name('delete_vision');
             Route::post('/update/{id}', [VisionController::class, 'update_vision'])->name('update_vision');
+        });
+
+        Route::prefix('/culture')->group(function(){
+            Route::get('/create', [CultureController::class, 'create_culture'])->name('create_culture');
+            Route::patch('/update/{id}', [CultureController::class, 'update_culture'])->name('update_culture');
+            Route::get('/edit/{id}', [CultureController::class, 'edit_culture'])->name('edit_culture');
+            Route::get('/view', [CultureController::class, 'view_culture'])->name('view_culture');
+            Route::post('/store', [CultureController::class, 'store_culture'])->name('store_culture');
+            Route::delete('/delete/{id}', [CultureController::class, 'delete_culture'])->name('delete_culture');
+            Route::post('/update/{id}', [CultureController::class, 'update_culture'])->name('update_culture');
         });
     });
 });
