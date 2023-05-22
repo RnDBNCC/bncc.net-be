@@ -17,7 +17,7 @@
 
         <div>
             <label for="">Description</label>
-            <textarea name="description" id="" cols="30" rows="10" value="{{ $visions->description }}"></textarea>
+            <textarea name="description" id="" cols="30" rows="10">{{ $visions->description }}</textarea>
         </div>
 
         <button type="submit">Submit</button>

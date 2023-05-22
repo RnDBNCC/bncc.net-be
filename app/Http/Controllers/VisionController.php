@@ -32,7 +32,7 @@ class VisionController extends Controller
             'Description' => $request->description
         ]);
 
-        return redirect('vision/view');
+        return redirect('/admin/vision/view');
         // return response()->json(["success"=>200]);
     }
 
@@ -44,7 +44,7 @@ class VisionController extends Controller
     public function delete_vision($id){
         $visions=Vision::findOrFail($id);
         $visions->delete();
-        return redirect('/vision/view');
+        return redirect('/admin/vision/view');
         // return response()->json(["success"=>200]);
     }
 }

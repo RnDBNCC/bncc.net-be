@@ -15,16 +15,13 @@
         </th>
         @foreach ($visions as $vision)
             <tr>
-                <td>
-                    <img style="width:100px" src="{{ asset('/storage/image/'.$vision->image) }}" alt="No data yet" />
-                </td>
                 <td>{{ $vision->name }}</td>
                 <td>{{ $vision->description }}</td>
                 <td>
                     <a href="{{route('edit_vision', ['id'=>$vision->id])}}"><button type="submit" class="btn btn-success">Edit</button></a>
                     <form action="{{route('delete_vision', ['id'=>$vision->id])}}" method="post">
                         @csrf
-                        @method('delete_vision')
+                        @method('delete')
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 </td>

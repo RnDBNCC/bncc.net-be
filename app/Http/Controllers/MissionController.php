@@ -37,19 +37,6 @@ class MissionController extends Controller
     }
 
     public function update_mission(Request $request, $id){
-        // $extension = $request->file('image')->getClientOriginalName();
-        // $image->storeAs('/public/image/structure', $file_name);
-        // $request->file('image')->storeAs('/public/image', $file_name);
-
-        // Mission::findOrFail($id)->update([
-        //     'image' => $file_name,
-        //     'name' => $request->name,
-        //     'Description' => $request->description
-        // ]);
-
-        // return redirect('mission/view');
-        // return response()->json(["success"=>200]);
-
         $image = $request->file('image');
         $mission = Mission::findOrFail($id);
 
@@ -79,7 +66,7 @@ class MissionController extends Controller
         $missions=Mission::findOrFail($id);
         $missions->delete();
         Storage::delete('/public/image'.$missions->image);
-        return redirect('/mission/view');
+        return redirect('/admin/mission/view');
         // return response()->json(["success"=>200]);
     }
 }
