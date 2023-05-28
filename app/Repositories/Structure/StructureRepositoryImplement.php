@@ -12,12 +12,30 @@ class StructureRepositoryImplement extends Eloquent implements StructureReposito
     * Don't remove or change $this->model variable name
     * @property Model|mixed $model;
     */
-    protected $model;
+    protected $structure;
 
-    public function __construct(Structure $model)
+    public function __construct(Structure $structure)
     {
-        $this->model = $model;
+        $this->structure = $structure;
     }
 
-    // Write something awesome :)
+    public function createStructure($structureData)
+    {
+        return $this->structure->create($structureData);
+    }
+
+    public function updateStructure($stuctureId, $structureData)
+    {
+        return $this->structure->findOrFail($stuctureId)->update($structureData);
+    }
+
+    public function deleteStructure($stuctureId)
+    {
+        return $this->structure->destroy($stuctureId);
+    }
+
+    public function getStructureById($stuctureId)
+    {
+        return $this->structure->findOrFail($stuctureId);
+    }
 }

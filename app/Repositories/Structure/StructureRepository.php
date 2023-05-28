@@ -6,5 +6,11 @@ use LaravelEasyRepository\Repository;
 
 interface StructureRepository extends Repository{
 
-    // Write something awesome :)
+    public function createStructure($structureData);
+
+    public function updateStructure($stuctureId, $structureData);
+
+    public function deleteStructure($stuctureId);
+
+    public function getStructureById($stuctureId);
 }

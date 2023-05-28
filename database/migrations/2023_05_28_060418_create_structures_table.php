@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('structures', function (Blueprint $table) {
             $table->id();
+            $table->string('profile_photo');
+            $table->string('profile_name');
+            $table->string('profile_division');
+            $table->string('profile_sub_division');
+            $table->string('profile_position');
+            $table->string('profile_region');
+            $table->string('profile_linkedin');
             $table->timestamps();
         });
     }
