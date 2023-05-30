@@ -17,8 +17,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('/structure')->group(function(){
     Route::post('/create', [StructureController::class, 'createStructure'])->name('createStructure');
-    Route::patch('/update/{id}', [StructureController::class, 'updateStructure'])->name('updateStructure');
+    Route::post('/update/{id}', [StructureController::class, 'updateStructure'])->name('updateStructure');
     Route::delete('/delete/{id}', [StructureController::class, 'deleteStructure'])->name('deleteStructure');
+    Route::get('/view/{id}',[StructureController::class, 'getStructureById'])->name('getStructureById');
+    Route::get('/view',[StructureController::class, 'viewStructure'])->name('viewStructure');
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

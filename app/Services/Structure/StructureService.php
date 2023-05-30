@@ -14,4 +14,6 @@ interface StructureService extends BaseService{
 
     public function getStructureById($structureId);
 
+    public function viewStructure();
+
 }

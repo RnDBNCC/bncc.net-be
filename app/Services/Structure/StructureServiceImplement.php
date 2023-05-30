@@ -101,7 +101,16 @@ class StructureServiceImplement extends ServiceApi implements StructureService{
     public function getStructureById($structureId)
     {
         try{
-            return $this->structureRepository->findOrFail($structureId);
+            return $this->structureRepository->getStructureById($structureId);
+        }catch(\Exception $exception){
+            return $this->exceptionResponse($exception);
+        }
+    }
+
+    public function viewStructure()
+    {
+        try{
+            return $this->structureRepository->viewStructure();
         }catch(\Exception $exception){
             return $this->exceptionResponse($exception);
         }

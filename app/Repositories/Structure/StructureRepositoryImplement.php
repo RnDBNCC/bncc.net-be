@@ -24,18 +24,23 @@ class StructureRepositoryImplement extends Eloquent implements StructureReposito
         return $this->structure->create($structureData);
     }
 
-    public function updateStructure($stuctureId, $structureData)
+    public function updateStructure($structureId, $structureData)
     {
-        return $this->structure->findOrFail($stuctureId)->update($structureData);
+        return $this->structure->findOrFail($structureId)->update($structureData);
     }
 
-    public function deleteStructure($stuctureId)
+    public function deleteStructure($structureId)
     {
-        return $this->structure->destroy($stuctureId);
+        return $this->structure->destroy($structureId);
     }
 
-    public function getStructureById($stuctureId)
+    public function getStructureById($structureId)
     {
-        return $this->structure->findOrFail($stuctureId);
+        return $this->structure->findOrFail($structureId);
+    }
+
+    public function viewStructure()
+    {
+        return $this->structure->all();
     }
 }

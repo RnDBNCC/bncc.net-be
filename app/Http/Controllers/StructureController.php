@@ -27,4 +27,12 @@ class StructureController extends Controller
     public function deleteStructure($structureId) :JsonResponse {
         return $this->structureService->deleteStructure($structureId)->toJson();
     }
+
+    public function getStructureById($structureId) {
+        return $this->structureService->getStructureById($structureId);
+    }
+
+    public function viewStructure(){
+        return $this->structureService->viewStructure();
+    }
 }

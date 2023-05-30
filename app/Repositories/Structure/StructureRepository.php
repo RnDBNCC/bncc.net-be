@@ -8,9 +8,11 @@ interface StructureRepository extends Repository{
 
     public function createStructure($structureData);
 
-    public function updateStructure($stuctureId, $structureData);
+    public function updateStructure($structureId, $structureData);
 
-    public function deleteStructure($stuctureId);
+    public function deleteStructure($structureId);
 
-    public function getStructureById($stuctureId);
+    public function getStructureById($structureId);
+
+    public function viewStructure();
 }
