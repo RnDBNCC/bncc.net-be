@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\StructureController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
+Route::prefix('/structure')->group(function(){
+    Route::post('/create', [StructureController::class, 'createStructure'])->name('createStructure');
+    Route::post('/update/{id}', [StructureController::class, 'updateStructure'])->name('updateStructure');
+    Route::delete('/delete/{id}', [StructureController::class, 'deleteStructure'])->name('deleteStructure');
+    Route::get('/view/{id}',[StructureController::class, 'getStructureById'])->name('getStructureById');
+    Route::get('/view',[StructureController::class, 'viewStructure'])->name('viewStructure');
+});
+
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
